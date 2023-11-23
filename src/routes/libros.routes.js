@@ -12,7 +12,7 @@ router.get(`/`, (req, res) => {
     libros: listaLibros.libros,
   });
 });*/
-  fs.readFile("libros.json", "utf8", (err, data) => {
+  listaLibros.readFile("libros.json", "utf8", (err, data) => {
     if (err) {
       console.error("Error al leer el archivo libros.json", err);
       return res.status(500).json({ error: "Error interno del servidor" });
