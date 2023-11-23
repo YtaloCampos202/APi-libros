@@ -6,12 +6,26 @@ const router = Router();
 
 // /api/libros/
 router.get(`/`, (req, res) => {
-  return res.json({
+  /* return res.json({
     ok: true,
     message: `lista de libros`,
     libros: listaLibros.libros,
   });
+});*/
+  fs.readFile("libros.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Error al leer el archivo libros.json", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    // Parsea los datos del JSON
+    const librosData = JSON.parse(data);
+
+    // Envía la lista de libros como respuesta
+    return res.json({ libros: librosData });
+  });
 });
+module.exports = router;
 
 // query params
 // api/libros/:libroId
